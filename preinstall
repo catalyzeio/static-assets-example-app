@@ -1,0 +1,26 @@
+#!/bin/sh -e
+# Downloads a static assets tarball stored in AWS S3.
+#
+# Make sure to set the following environment variables on the code service:
+#
+# - AWS_ACCESS_KEY_ID
+# - AWS_SECRET_ACCESS_KEY
+#
+# Alternatively, make the tarball readable (but not writable) by the
+# "Everyone" user so that it can be pulled down via wget.
+
+ASSETS_BUCKET=paas-examples
+ASSETS_TARBALL=ember-example-app-0f45fff.tar.gz
+
+if [ -n "$AWS_ACCESS_KEY_ID" ]; then
+  # via CLI with credentials
+  aws s3 cp s3://${ASSETS_BUCKET}/${ASSETS_TARBALL} dist.tar.gz
+else
+  # via wget; assume tarball is public
+  wget -O dist.tar.gz https://s3.amazonaws.com/${ASSETS_BUCKET}/${ASSETS_TARBALL}
+fi
+
+# drop the dist directory in place and remove temporary download
+rm -rf dist
+tar xvzf dist.tar.gz
+rm dist.tar.gz

@@ -1,0 +1,13 @@
+{
+  "name": "static-assets-example-app",
+  "description": "Sample express-static application for the Catalyze PaaS platform",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "preinstall": "./preinstall"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "express-static": "^1.0.3"
+  }
+}
