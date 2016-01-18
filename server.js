@@ -1,9 +1,10 @@
 var express = require('express'),
-    static  = require('express-static');
+    compression = require('compression');
 
 var app = express();
 app.disable('x-powered-by');
-app.use(static(__dirname + '/dist'));
+app.use(compression());
+app.use(express.static(__dirname + '/dist'));
 
 var port = process.env.PORT | 8080;
 var server = app.listen(port, function() {
